@@ -66,6 +66,7 @@
                 <tr>
                     <th class="col-sm-5">TIME</th>
                     <th>EVENT</th>
+                    <th>LOGS</th>
                     <th>DETAIL</th>
                 </tr>
             </thead>
@@ -83,6 +84,12 @@
                             <span>{{ job_event.event_name.replace('job_', '') }}</span>
                         </td>
                         <td>
+                            {{ job_event.logs }}
+                        </td>
+                        <td>
+                            <p>Exception: {{ job_event.exception }}</p>
+                            <p>Info: {{ job_event.info}}</p>
+                            <p>Return: {{ job_event.retval}}</p>
                         </td>
                     </tr>
                 </tbody>

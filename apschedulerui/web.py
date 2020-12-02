@@ -10,6 +10,7 @@ from apscheduler.triggers.interval import IntervalTrigger
 from flask import Response
 
 from apschedulerui.watcher import SchedulerWatcher, SchedulerEventsListener
+from apschedulerui.patch import patch_scheduler
 
 
 class SchedulerUI(SchedulerEventsListener):
@@ -51,6 +52,7 @@ class SchedulerUI(SchedulerEventsListener):
 
     def __init__(self, scheduler, capabilities=None, operation_timeout=1):
         self.scheduler = scheduler
+        patch_scheduler(scheduler)
         self.capabilities = {
             'pause_job': False,
             'remove_job': False,

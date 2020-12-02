@@ -21,6 +21,7 @@ class SdistWithWebpack(sdist):
     def run(self):
         import os
         import subprocess
+        return
 
         if 'CI' not in os.environ:
             if not os.path.exists('frontend/node_build_env'):
@@ -36,7 +37,7 @@ class SdistWithWebpack(sdist):
 
 
 setup(
-    name='apschedulerui',
+    name='apschedulerui-with-log-patched',
     version=VERSION,
     description='',
     long_description=long_description,

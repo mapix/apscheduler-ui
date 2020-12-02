@@ -6,6 +6,7 @@ import apscheduler.events
 import apscheduler.schedulers.base
 
 from multiprocessing import RLock
+from apschedulerui.patch import LAST_JOB_RUN_DETAIL_INFOS
 
 
 class SchedulerEventsListener:
@@ -283,20 +284,26 @@ class SchedulerWatcher:
         Args:
             event (apscheduler.events.JobExecutionEvent):
         """
+        info, logs = LAST_JOB_RUN_DETAIL_INFOS.pop(event.job_id, (None, None))
         self._job_execution_event(event.job_id, event.jobstore, event_name, event_ts,
                                   retval=event.retval,
-                                  scheduled_run_time=self._repr_ts(event.scheduled_run_time))
+                                  scheduled_run_time=self._repr_ts(event.scheduled_run_time),
+                                  info=info,
+                                  logs=logs)
 
     def job_error(self, event, event_name, event_ts):
         """
         Args:
             event (apscheduler.events.JobExecutionEvent):
         """
+        info, logs = LAST_JOB_RUN_DETAIL_INFOS.pop(event.job_id, (None, None))
         self._job_execution_event(event.job_id, event.jobstore, event_name, event_ts,
                                   retval=event.retval,
                                   exception=str(event.exception),
                                   traceback=str(event.traceback),
-                                  scheduled_run_time=self._repr_ts(event.scheduled_run_time))
+                                  scheduled_run_time=self._repr_ts(event.scheduled_run_time),
+                                  info=info,
+                                  logs=logs)
 
     def job_missed(self, event, event_name, event_ts):
         """
