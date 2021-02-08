@@ -8,7 +8,7 @@ module.exports = {
     entry: './src/app.js',
     output: {
         path: path.resolve(__dirname, '../apschedulerui/static'),
-        publicPath: '/static/',
+        publicPath: './static',
         filename: 'app.bundle.js'
     },
     module: {

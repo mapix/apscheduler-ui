@@ -44,8 +44,8 @@ schedulerApp.factory('socket', ['socketFactory', function (socketFactory) {
         location.origin = location.protocol + "//" + location.host;
 
     return socketFactory({
-        prefix: '',
-        ioSocket: io.connect(location.origin)
+        prefix: "",
+        ioSocket: io.connect(location.origin, {path: location.pathname + "/socket.io/"})
     });
 }]);
 

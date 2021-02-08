@@ -21,7 +21,9 @@ class SdistWithWebpack(sdist):
     def run(self):
         import os
         import subprocess
+        sdist.run(self)
         return
+
 
         if 'CI' not in os.environ:
             if not os.path.exists('frontend/node_build_env'):
